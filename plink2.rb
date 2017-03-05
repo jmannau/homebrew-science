@@ -1,10 +1,10 @@
 class Plink2 < Formula
-  url "https://github.com/chrchang/plink-ng/archive/v1.90b3.tar.gz"
-  version "1.90b3"
+  url "https://github.com/chrchang/plink-ng/archive/96f3637b62f4fddcf1e5a16929b77c637867d8cd.zip"
+  version "1.90b3.46"
   # doi "10.1186/s13742-015-0047-8"
   # tag "bioinformatics"
   homepage "https://www.cog-genomics.org/plink2"
-  sha256 "2f4afc193c288b13af4410e4587358ee0a6f76ed7c98dd77ca1317aac28adf0d"
+  sha256 "e1d36c9260c73420a13a2112a6319eeea2f11495f76f76303abd383dc758ffb3"
 
   depends_on :fortran
   depends_on "openblas" => :optional
@@ -20,7 +20,7 @@ class Plink2 < Formula
 
   def install
     mv "Makefile.std", "Makefile"
-    ln_s Formula["zlib"].opt_include, "zlib-1.2.8"
+    ln_s Formula["zlib"].opt_include, "zlib-1.2.11"
     cflags = "-Wall -O2 -flax-vector-conversions"
     cflags += " -I#{Formula["openblas"].opt_include}" if build.with? "openblas"
     args = ["CFLAGS=#{cflags}", "ZLIB=-L#{Formula["zlib"].opt_lib} -lz"]
