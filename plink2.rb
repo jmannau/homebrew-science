@@ -1,27 +1,12 @@
 class Plink2 < Formula
-<<<<<<< HEAD
-  url "https://github.com/chrchang/plink-ng/archive/v1.90b3.tar.gz"
-  version "1.90b3"
+  desc "Free, open-source whole genome association analysis toolset."
+  homepage "https://www.cog-genomics.org/plink2"
+  url "https://github.com/chrchang/plink-ng/archive/v1.90b4.tar.gz"
+  version "1.90b4"
   # doi "10.1186/s13742-015-0047-8"
   # tag "bioinformatics"
-  homepage "https://www.cog-genomics.org/plink2"
-  sha256 "2f4afc193c288b13af4410e4587358ee0a6f76ed7c98dd77ca1317aac28adf0d"
-  revision 1
+  sha256 "2ab909fc6c04062be56be86cf00ad6b3927316a34ae4ceb5fc4c250074cb3d26"
 
-  depends_on :fortran
-  depends_on "openblas" => :optional
-  depends_on "zlib"
-
-=======
-  desc "PLINK is a free, open-source whole genome association analysis toolset."
-  homepage "https://www.cog-genomics.org/plink2"
-  url "https://github.com/chrchang/plink-ng/archive/96f3637b62f4fddcf1e5a16929b77c637867d8cd.zip"
-  version "1.90b3.46"
-  # doi "10.1186/s13742-015-0047-8"
-  # tag "bioinformatics"
-  sha256 "e1d36c9260c73420a13a2112a6319eeea2f11495f76f76303abd383dc758ffb3"
-
->>>>>>> Update Plink2 to build 1.9b3.46
   bottle do
     cellar :any
     sha256 "61fba0c9016731531eaab1e88f1fc01d0ccbf41119c084e257e3f999fe8be0ad" => :sierra
@@ -31,17 +16,19 @@ class Plink2 < Formula
 
   depends_on :fortran
   depends_on "openblas" => :optional
-  depends_on "homebrew/dupes/zlib"
+  depends_on "zlib"
 
   def install
-    mv "Makefile.std", "Makefile"
-    ln_s Formula["zlib"].opt_include, "zlib-1.2.8"
-    cflags = "-Wall -O2 -flax-vector-conversions"
-    cflags += " -I#{Formula["openblas"].opt_include}" if build.with? "openblas"
-    args = ["CFLAGS=#{cflags}", "ZLIB=-L#{Formula["zlib"].opt_lib} -lz"]
-    args << "BLASFLAGS=-L#{Formula["openblas"].opt_lib} -lopenblas" if build.with? "openblas"
-    system "make", "plink", *args
-    bin.install "plink" => "plink2"
+    Dir.chdir("1.9") do
+      mv "Makefile.std", "Makefile"
+      ln_s Formula["zlib"].opt_include, "../zlib-1.2.11"
+      cflags = "-Wall -O2 -flax-vector-conversions"
+      cflags += " -I#{Formula["openblas"].opt_include}" if build.with? "openblas"
+      args = ["CFLAGS=#{cflags}", "ZLIB=-L#{Formula["zlib"].opt_lib} -lz"]
+      args << "BLASFLAGS=-L#{Formula["openblas"].opt_lib} -lopenblas" if build.with? "openblas"
+      system "make", "plink", *args
+      bin.install "plink" => "plink2"
+    end
   end
 
   test do
