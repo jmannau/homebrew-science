@@ -1,4 +1,5 @@
 class Plink2 < Formula
+<<<<<<< HEAD
   url "https://github.com/chrchang/plink-ng/archive/v1.90b3.tar.gz"
   version "1.90b3"
   # doi "10.1186/s13742-015-0047-8"
@@ -11,12 +12,26 @@ class Plink2 < Formula
   depends_on "openblas" => :optional
   depends_on "zlib"
 
+=======
+  desc "PLINK is a free, open-source whole genome association analysis toolset."
+  homepage "https://www.cog-genomics.org/plink2"
+  url "https://github.com/chrchang/plink-ng/archive/96f3637b62f4fddcf1e5a16929b77c637867d8cd.zip"
+  version "1.90b3.46"
+  # doi "10.1186/s13742-015-0047-8"
+  # tag "bioinformatics"
+  sha256 "e1d36c9260c73420a13a2112a6319eeea2f11495f76f76303abd383dc758ffb3"
+
+>>>>>>> Update Plink2 to build 1.9b3.46
   bottle do
     cellar :any
     sha256 "61fba0c9016731531eaab1e88f1fc01d0ccbf41119c084e257e3f999fe8be0ad" => :sierra
     sha256 "87ef1226f0fd076e0683e2b30c006489cb76f2a44b241949cd44beec549a3126" => :el_capitan
     sha256 "540b6a0f57c322040f1338655456a32c7971a3320fdc17d09fba582930c5722e" => :yosemite
   end
+
+  depends_on :fortran
+  depends_on "openblas" => :optional
+  depends_on "homebrew/dupes/zlib"
 
   def install
     mv "Makefile.std", "Makefile"
